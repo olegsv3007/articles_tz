@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Article\ArticleIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,6 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', HomeController::class)->name('app.home');
+Route::get('/', ArticleIndexController::class)->name('app.home');
 
 Auth::routes();
-
