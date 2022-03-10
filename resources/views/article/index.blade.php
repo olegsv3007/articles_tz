@@ -7,6 +7,7 @@
     @foreach($articles as $article)
         <x-article.card :article="$article" />
     @endforeach
+    {{ $articles->onEachSide(1)->links('templates.paginator') }}
 </div>
 
 @endsection

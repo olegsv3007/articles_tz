@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Article\ArticleIndexController;
+use App\Http\Controllers\Article\ArticleShowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,8 @@ use App\Http\Controllers\Article\ArticleIndexController;
 |
 */
 
-Route::get('/', ArticleIndexController::class)->name('app.home');
-
 Auth::routes();
+
+Route::get('/', ArticleIndexController::class)->name('app.home');
+Route::get('/articles/{article}', ArticleShowController::class)->name('app.article.detail');
+

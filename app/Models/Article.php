@@ -14,4 +14,9 @@ class Article extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function getArticleImagePublicPathAttribute()
+    {
+        return asset('img/articles/' . $this->image_filename);
+    }
 }
