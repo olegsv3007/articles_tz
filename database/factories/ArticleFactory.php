@@ -14,7 +14,7 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'short_text' => $this->faker->text(300),
-            'text' => $this->faker->paragraphs(5, true),
+            'text' => '<p>' . implode('</p><p>' , $this->faker->paragraphs(25)) . '</p>',
             'image_filename' => $this->faker->image(public_path('img/articles/'), 480, 320, null, false),
             'created_at' => $created_at,
             'updated_at' => $updated_at,
