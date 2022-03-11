@@ -14,4 +14,9 @@ class ArticlePolicy
     {
         return $user->id === $article->author_id;
     }
+
+    public function delete(User $user, Article $article): bool
+    {
+        return $user->id === $article->author_id;
+    }
 }

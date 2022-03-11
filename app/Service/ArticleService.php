@@ -21,21 +21,16 @@ class ArticleService
         return $this->articleRepository->all();
     }
 
-    public function store(array $articleFormData, User $author)
+    public function store(array $articleFormData, User $author):void
     {
         $filename = $this->imageService->storeImage($articleFormData['image'], self::IMAGE_DESTINATION);
-
-        if (!$filename) {
-            return null;
-        }
-
         $articleFormData['image_filename'] = $filename;
         unset($articleFormData['image']);
 
         $this->articleRepository->store($articleFormData, $author);
     }
 
-    public function update(Article $article, array $articleFormData)
+    public function update(Article $article, array $articleFormData): void
     {
         if ($newImage = $articleFormData['image'] ?? false) {
             $filename = $this->imageService->updateImage($newImage, self::IMAGE_DESTINATION, self::IMAGE_DESTINATION . $article->image_filename);
@@ -43,5 +38,11 @@ class ArticleService
         }
 
         $this->articleRepository->update($article, $articleFormData);
+    }
+
+    public function delete(Article $article): void
+    {
+        $this->imageService->removeImage(self::IMAGE_DESTINATION . $article->image_filename);
+        $this->articleRepository->destroy($article);
     }
 }

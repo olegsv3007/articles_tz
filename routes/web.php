@@ -7,6 +7,7 @@ use App\Http\Controllers\Article\ArticleCreateController;
 use App\Http\Controllers\Article\ArticleStoreController;
 use App\Http\Controllers\Article\ArticleEditController;
 use App\Http\Controllers\Article\ArticleUpdateController;
+use App\Http\Controllers\Article\ArticleDestroyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/article/store', ArticleStoreController::class)->name('app.article.store');
     Route::get('/article/{article}/edit', ArticleEditController::class)->name('app.article.edit');
     Route::put('/article/{article}/update', ArticleUpdateController::class)->name('app.article.update');
+    Route::delete('/article/{article}/destroy', ArticleDestroyController::class)->name('app.article.destroy');
 });
 
 Route::get('/', ArticleIndexController::class)->name('app.home');

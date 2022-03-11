@@ -26,4 +26,9 @@ class ArticleRepository
     {
         $article->update($articleData);
     }
+
+    public function destroy(Article $article): void
+    {
+        $article->delete();
+    }
 }
