@@ -33,9 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">{{ __('common.navbar.home') }}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">{{ __('common.navbar.my_articles') }}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">{{ __('common.navbar.create_article') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('app.home') }}">{{ __('common.navbar.home') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('app.article.my') }}">{{ __('common.navbar.my_articles') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('app.article.create') }}">{{ __('common.navbar.create_article') }}</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
