@@ -11,29 +11,29 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::factory()
-            ->count(3)
+        User::factory()
+            ->count(15)
             ->create()
+            ->each(function ($author) {
+                $author->articles()->saveMany(
+                    Article::factory()
+                        ->count(rand(0,6))
+                        ->make()
+                );
+            });
         ;
 
-        foreach ($users as $user) {
-            Article::factory()
-                ->count(5)
-                ->state([
-                    'author_id' => $user->id,
-                ])
-                ->create()
-                ->each(function ($article) use ($users) {
-                    $article->comments()->saveMany(
-                        Comment::factory()
-                            ->count(rand(0, 12))
-                            ->state([
-                                'author_id' => $users->random()->first()->id,
-                            ])
-                            ->make()
-                    );
-                })
-            ;
-        }
+        $articles = Article::all();
+
+        Comment::factory()
+            ->count(150)
+            ->state([
+                'author_id' => function() { return User::all()->random()->id; },
+                'article_id' => function() { return Article::all()->random()->id; },
+            ])
+            ->create();
+        ;
+
+
     }
 }

@@ -16,6 +16,32 @@
             @endcan
         </div>
         <x-article.article-full :article="$article" />
+
+        @auth
+            <form action="{{ route('app.comment.store', $article) }}" method="post">
+                @csrf
+                <h2 class="mt-5">{{ __('article.comment_form_title') }}</h2>
+                <div class="has-validation mt-3 col-12">
+                    <label for="comment">{{ __('comment.form.comment_label') }}</label>
+                    <textarea
+                        id="comment"
+                        class="form-control @error('comment') {{ 'is-invalid' }} @enderror"
+                        name="comment"
+                    >{{ old('comment') }}</textarea>
+                    @error('comment')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <input type="submit" value="{{ __('article.form.comment_submit') }}" class="mt-2 btn btn-primary col-3">
+            </form>
+        @endauth
+        <h2 class="mt-5">{{ __('article.comments_title') }}</h2>
+        @foreach($comments as $comment)
+            <x-comment :comment="$comment" />
+        @endforeach
     </div>
+
 
 @endsection
