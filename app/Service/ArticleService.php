@@ -45,4 +45,9 @@ class ArticleService
         $this->imageService->removeImage(self::IMAGE_DESTINATION . $article->image_filename);
         $this->articleRepository->destroy($article);
     }
+
+    public function getArticleByUser(User $user): LengthAwarePaginator
+    {
+        return $this->articleRepository->getArticleByUser($user);
+    }
 }
