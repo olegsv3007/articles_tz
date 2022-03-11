@@ -13,7 +13,8 @@ class ArticleRepository
     public function all(): LengthAwarePaginator
     {
         return Article::orderBy('created_at', 'DESC')
-            ->paginate(self::ITEMS_PER_PAGE);
+            ->paginate(self::ITEMS_PER_PAGE)
+        ;
     }
 
     public function store(array $articleData, User $author): void
@@ -30,5 +31,13 @@ class ArticleRepository
     public function destroy(Article $article): void
     {
         $article->delete();
+    }
+
+    public function getArticleByUser(User $user): LengthAwarePaginator
+    {
+        return Article::where('author_id', $user->id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(self::ITEMS_PER_PAGE)
+        ;
     }
 }

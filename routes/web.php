@@ -9,6 +9,7 @@ use App\Http\Controllers\Article\ArticleStoreController;
 use App\Http\Controllers\Article\ArticleEditController;
 use App\Http\Controllers\Article\ArticleUpdateController;
 use App\Http\Controllers\Article\ArticleDestroyController;
+use App\Http\Controllers\Article\ArticleByUserController;
 
 use App\Http\Controllers\Comment\CommentStoreController;
 
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function() {
     Route::put('/article/{article}/update', ArticleUpdateController::class)->name('app.article.update');
     Route::delete('/article/{article}/destroy', ArticleDestroyController::class)->name('app.article.destroy');
     Route::post('/article/{article}/comment/create', CommentStoreController::class)->name('app.comment.store');
+
+    Route::get('/article/myArticle', ArticleByUserController::class)->name('app.article.my');
 });
 
 Route::get('/', ArticleIndexController::class)->name('app.home');
