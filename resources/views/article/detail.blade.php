@@ -22,7 +22,7 @@
                 @csrf
                 <h2 class="mt-5">{{ __('article.comment_form_title') }}</h2>
                 <div class="has-validation mt-3 col-12">
-                    <label for="comment">{{ __('comment.form.comment_label') }}</label>
+                    <label for="comment">{{ __('article.form_comment.comment_label') }}</label>
                     <textarea
                         id="comment"
                         class="form-control @error('comment') {{ 'is-invalid' }} @enderror"
@@ -34,7 +34,7 @@
                     </div>
                     @enderror
                 </div>
-                <input type="submit" value="{{ __('article.form.comment_submit') }}" class="mt-2 btn btn-primary col-3">
+                <input type="submit" value="{{ __('article.form_comment.comment_submit') }}" class="mt-2 btn btn-primary col-3">
             </form>
         @endauth
         <h2 class="mt-5">{{ __('article.comments_title') }}</h2>
