@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Article\ArticleIndexController;
 use App\Http\Controllers\Article\ArticleShowController;
+use App\Http\Controllers\Article\ArticleCreateController;
+use App\Http\Controllers\Article\ArticleStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +20,7 @@ use App\Http\Controllers\Article\ArticleShowController;
 Auth::routes();
 
 Route::get('/', ArticleIndexController::class)->name('app.home');
-Route::get('/articles/{article}', ArticleShowController::class)->name('app.article.detail');
+Route::get('/article/create', ArticleCreateController::class)->name('app.article.create');
+Route::post('/article/store', ArticleStoreController::class)->name('app.article.store');
+Route::get('/article/{article}', ArticleShowController::class)->name('app.article.detail');
 
