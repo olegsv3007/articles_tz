@@ -28,7 +28,7 @@
                     class="form-control @error('short_text') {{ 'is-invalid' }} @enderror"
                     name="short_text"
                 >{{ old('short_text') ?? $article->short_text }}</textarea>
-                @error('title')
+                @error('short_text')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
