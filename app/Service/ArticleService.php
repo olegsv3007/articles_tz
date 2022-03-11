@@ -9,6 +9,8 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ArticleService
 {
+    public const IMAGE_DESTINATION = '/img/articles/';
+
     public function __construct(
         private ArticleRepository $articleRepository,
         private ImageService $imageService,
@@ -19,9 +21,9 @@ class ArticleService
         return $this->articleRepository->all();
     }
 
-    public function store(array $articleFormData, User $author): ?Article
+    public function store(array $articleFormData, User $author)
     {
-        $filename = $this->imageService->storeImage($articleFormData['image'], '/img/articles/');
+        $filename = $this->imageService->storeImage($articleFormData['image'], self::IMAGE_DESTINATION);
 
         if (!$filename) {
             return null;
@@ -30,6 +32,16 @@ class ArticleService
         $articleFormData['image_filename'] = $filename;
         unset($articleFormData['image']);
 
-        return $this->articleRepository->store($articleFormData, $author);
+        $this->articleRepository->store($articleFormData, $author);
+    }
+
+    public function update(Article $article, array $articleFormData)
+    {
+        if ($newImage = $articleFormData['image'] ?? false) {
+            $filename = $this->imageService->updateImage($newImage, self::IMAGE_DESTINATION, self::IMAGE_DESTINATION . $article->image_filename);
+            $articleFormData['image_filename'] = $filename;
+        }
+
+        $this->articleRepository->update($article, $articleFormData);
     }
 }

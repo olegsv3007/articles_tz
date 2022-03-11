@@ -16,11 +16,14 @@ class ArticleRepository
             ->paginate(self::ITEMS_PER_PAGE);
     }
 
-    public function store(array $articleData, User $author): ?Article
+    public function store(array $articleData, User $author): void
     {
         $article = Article::make($articleData);
         $author->articles()->save($article);
+    }
 
-        return $article;
+    public function update(Article $article, array $articleData): void
+    {
+        $article->update($articleData);
     }
 }

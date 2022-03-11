@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class, 'author_id');
     }
+
+    public function isAuthorOfArticle(Article $article): bool
+    {
+        return $this->articles->contains($article);
+    }
 }

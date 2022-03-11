@@ -2,29 +2,23 @@
 
 namespace App\Http\Requests\Article;
 
+use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleUpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
-        return false;
+        return auth()->user()->isAuthorOfArticle($this->article);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:3',
+            'short_text' => 'required|min:10',
+            'text' => 'required|min:100',
+            'image' => 'file|mimes:jpg,bmp,png|max:2048',
         ];
     }
 }
