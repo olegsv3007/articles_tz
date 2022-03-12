@@ -1,5 +1,3 @@
-docker-compose down
-
 git pull origin master
 
 if [ ! -f "./.env" ]; then
