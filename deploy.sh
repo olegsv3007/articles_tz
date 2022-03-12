@@ -1,10 +1,12 @@
-docker-compose down
-
 git pull origin master
 
-docker-compose up -d
+if [ ! -f "./.env" ]; then
+    cp ./.env.example ./.env
+fi
 
-docker-compose exec articles-app composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+docker-compose up -d --build
+
+docker-compose exec articles-app composer install --no-interaction --prefer-dist --optimize-autoloader
 
 docker-compose exec articles-app php artisan migrate
 
