@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  articles-app:
+    build:
+      args:
+        user: app
+        uid: 1000
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - /var/www/articles-tz:/var/www/html
+    networks:
+      - app-network
+
+  articles-nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - /var/www/articles-tz:/var/www/html
+    networks:
+      - app-network
+
+  articles-mysql:
+    image: 'mysql:8.0'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - ./docker/db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
